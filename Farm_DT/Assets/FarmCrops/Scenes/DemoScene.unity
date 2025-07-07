@@ -42418,7 +42418,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139438e83210f594d8551d2f9a8f53b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cinemachineCamera: {fileID: 1708200913}
+  followTarget: {fileID: 1500787504}
   useEdgeScrolling: 1
+  useDragPan: 0
+  fieldOfViewMax: 50
+  fieldOfViewMin: 10
+  followOffsetMin: 5
+  followOffsetMax: 50
+  followOffsetMinY: 10
+  followOffsetMaxY: 50
 --- !u!1001 &1501012494
 PrefabInstance:
   m_ObjectHideFlags: 0
