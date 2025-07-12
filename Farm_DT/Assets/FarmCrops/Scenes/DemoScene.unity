@@ -2966,6 +2966,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 100664696}
+  - component: {fileID: 100664697}
   m_Layer: 0
   m_Name: wp4
   m_TagString: Waypoint
@@ -2988,6 +2989,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1745361831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &100664697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100664695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9eb1028e197914e8a13ee0e9261372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soilMoisture: 50
+  health: 80
 --- !u!1001 &100969812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19008,6 +19023,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcf8d0daf7b416b498f7fafa1acf4f8e, type: 3}
+--- !u!1 &530082810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 530082812}
+  - component: {fileID: 530082811}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &530082811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530082810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38218f3e878cb5549879d03c14d4fa1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &530082812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530082810}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.80254, y: 0, z: 4.49055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &530449000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19631,6 +19690,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 551262541}
+  - component: {fileID: 551262542}
   m_Layer: 0
   m_Name: wp1
   m_TagString: Waypoint
@@ -19653,6 +19713,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1745361831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &551262542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551262540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9eb1028e197914e8a13ee0e9261372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soilMoisture: 50
+  health: 80
 --- !u!1001 &551870133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36809,6 +36883,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1086708196}
+  - component: {fileID: 1086708197}
   m_Layer: 0
   m_Name: wp7
   m_TagString: Waypoint
@@ -36831,6 +36906,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1745361831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1086708197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086708195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9eb1028e197914e8a13ee0e9261372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soilMoisture: 50
+  health: 80
 --- !u!1001 &1089864653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51230,6 +51319,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1551936386}
+  - component: {fileID: 1551936387}
   m_Layer: 0
   m_Name: wp5
   m_TagString: Waypoint
@@ -51252,6 +51342,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1745361831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1551936387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551936385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9eb1028e197914e8a13ee0e9261372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soilMoisture: 50
+  health: 80
 --- !u!1001 &1562584519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52237,6 +52341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1583157503}
+  - component: {fileID: 1583157504}
   m_Layer: 0
   m_Name: wp6
   m_TagString: Waypoint
@@ -52259,6 +52364,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1745361831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1583157504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583157502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9eb1028e197914e8a13ee0e9261372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soilMoisture: 50
+  health: 80
 --- !u!1001 &1583650342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52390,6 +52509,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1586031000}
+  - component: {fileID: 1586031001}
   m_Layer: 0
   m_Name: wp2
   m_TagString: Waypoint
@@ -52412,6 +52532,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1745361831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1586031001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586030999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9eb1028e197914e8a13ee0e9261372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soilMoisture: 50
+  health: 80
 --- !u!1001 &1586432962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57688,6 +57822,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1745361831}
+  - component: {fileID: 1745361832}
   m_Layer: 0
   m_Name: DronePath
   m_TagString: Waypoint
@@ -57718,6 +57853,20 @@ Transform:
   - {fileID: 1810249626}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1745361832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745361830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9eb1028e197914e8a13ee0e9261372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soilMoisture: 50
+  health: 80
 --- !u!1001 &1745694958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58276,6 +58425,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1759829654}
+  - component: {fileID: 1759829655}
   m_Layer: 0
   m_Name: wp3
   m_TagString: Waypoint
@@ -58298,6 +58448,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1745361831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1759829655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759829653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9eb1028e197914e8a13ee0e9261372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soilMoisture: 50
+  health: 80
 --- !u!1001 &1764170971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60198,6 +60362,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1810249626}
+  - component: {fileID: 1810249627}
   m_Layer: 0
   m_Name: wp8
   m_TagString: Waypoint
@@ -60220,6 +60385,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1745361831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1810249627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810249625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9eb1028e197914e8a13ee0e9261372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soilMoisture: 50
+  health: 80
 --- !u!1001 &1813488856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73046,3 +73225,4 @@ SceneRoots:
   - {fileID: 315686531}
   - {fileID: 492874647}
   - {fileID: 1626599724}
+  - {fileID: 530082812}

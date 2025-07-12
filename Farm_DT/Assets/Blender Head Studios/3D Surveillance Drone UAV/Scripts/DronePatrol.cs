@@ -2,18 +2,29 @@
 
 public class DronePatrol : MonoBehaviour
 {
-    public float speed = 5f;                      // سرعة الطيران
-    private Transform[] waypoints;               // قائمة النقاط
-    private int currentIndex = 0;                // المؤشر الحالي
-    private bool dataCollected = false;          // عشان ما يجمع مرتين
+    public float speed = 5f; // سرعة الطيران
+    private Transform[] waypoints;
+    private int currentIndex = 0;
+    private bool[] visitedPoints;
+    private bool isFinished = false;
 
     void Start()
     {
-        GameObject[] points = GameObject.FindGameObjectsWithTag("Waypoint");
-        waypoints = new Transform[points.Length];
-        for (int i = 0; i < points.Length; i++)
+        GameObject pathParent = GameObject.Find("DronePath");
+
+        if (pathParent == null)
         {
-            waypoints[i] = points[i].transform;
+            Debug.LogError("❌ لم يتم العثور على DronePath في المشهد!");
+            return;
+        }
+
+        int count = pathParent.transform.childCount;
+        waypoints = new Transform[count];
+        visitedPoints = new bool[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            waypoints[i] = pathParent.transform.GetChild(i);
         }
 
         System.Array.Sort(waypoints, (a, b) => a.name.CompareTo(b.name));
@@ -21,32 +32,41 @@ public class DronePatrol : MonoBehaviour
 
     void Update()
     {
-        if (waypoints.Length == 0) return;
+        if (isFinished || waypoints.Length == 0) return;
 
         Transform target = waypoints[currentIndex];
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
-        // إذا قرب من الهدف: اجمع البيانات مره وحده
-        if (!dataCollected && Vector3.Distance(transform.position, target.position) < 0.5f)
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        // جمع البيانات إذا قرب من النبات
+        if (!visitedPoints[currentIndex] && distance < 0.5f)
         {
             CropHealth crop = target.GetComponent<CropHealth>();
             if (crop != null)
             {
                 DroneDataCollector.Instance.AddData(target.name, crop.soilMoisture, crop.health);
-                dataCollected = true;
+                Debug.Log($"📦 Collected from {target.name}: moisture={crop.soilMoisture}, health={crop.health}");
             }
+            else
+            {
+                Debug.LogWarning($"⚠️ No CropHealth script found on: {target.name}");
+            }
+
+            visitedPoints[currentIndex] = true;
         }
 
-        // إذا وصل للنقطة، ينتقل للي بعدها
-        if (Vector3.Distance(transform.position, target.position) < 0.2f)
+        // التنقل للنقطة التالية
+        if (distance < 0.2f)
         {
             currentIndex++;
+
             if (currentIndex >= waypoints.Length)
             {
-                currentIndex = 0;
+                isFinished = true;
+                DroneDataCollector.Instance.ExportToCSV();
+                Debug.Log("✅ Drone finished patrol and exported data.");
             }
-
-            dataCollected = false; // نسمح بجمع بيانات للنقطة الجديدة
         }
     }
 }

@@ -10,25 +10,22 @@ public class DroneDataCollector : MonoBehaviour
 
     void Awake()
     {
-        // نخلي السكربت متاح للجميع
         if (Instance == null)
             Instance = this;
     }
 
-    // الدالة اللي تنادينها عند المرور على النبات
     public void AddData(string plantName, float moisture, float health)
     {
         string line = $"{plantName},{moisture},{health}";
         collectedData.Add(line);
     }
 
-    // تصدير الملف بعد انتهاء الرحلة
     public void ExportToCSV()
     {
         string path = Application.dataPath + "/DroneReport.csv";
         List<string> output = new List<string>
         {
-            "Plant Name,Soil Moisture,Health" // عنوان الأعمدة
+            "Plant Name,Soil Moisture,Health"
         };
         output.AddRange(collectedData);
         File.WriteAllLines(path, output.ToArray());
