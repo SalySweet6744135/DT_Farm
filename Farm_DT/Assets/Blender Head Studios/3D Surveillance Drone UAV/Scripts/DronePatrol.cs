@@ -8,8 +8,15 @@ public class DronePatrol : MonoBehaviour
     private bool[] visitedPoints;
     private bool isFinished = false;
 
+    //public Animator DroneController;
+
     void Start()
     {
+        //if (DroneController != null)
+        //{
+        //    DroneController.SetBool("isSpinning", true);
+        //}
+
         GameObject pathParent = GameObject.Find("DronePath");
 
         if (pathParent == null)
@@ -66,6 +73,12 @@ public class DronePatrol : MonoBehaviour
                 isFinished = true;
                 DroneDataCollector.Instance.ExportToCSV();
                 Debug.Log("✅ Drone finished patrol and exported data.");
+
+                // 🛑 إيقاف أنميشن المروحة
+                //if (DroneController != null)
+                //{
+                //    DroneController.SetBool("isSpinning", false);
+                //}
             }
         }
     }

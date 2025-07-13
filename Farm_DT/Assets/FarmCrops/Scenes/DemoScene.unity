@@ -56556,6 +56556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  fanAnimation: {fileID: 0}
 --- !u!1001 &1711870417
 PrefabInstance:
   m_ObjectHideFlags: 0
