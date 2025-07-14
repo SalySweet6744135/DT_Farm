@@ -1,9 +1,15 @@
-Plant Name,Soil Moisture,Health
-wp1,50,80
-wp2,50,80
-wp3,50,80
-wp4,50,80
-wp5,50,80
-wp6,50,80
-wp7,50,80
-wp8,50,80
+Plant Name,Soil Moisture,Sunlight Exposure,Health
+Cabbage,50,40,95
+Carrot,50,40,95
+Corn,50,40,95
+Cucumber ,50,40,95
+Garlic,50,40,95
+Onion,50,40,95
+Potato,50,40,95
+Pumpkin,50,40,95
+Radish,50,40,95
+RedBeet,50,40,95
+Sunflower,50,40,95
+Tomato,50,40,95
+Watermelon,50,40,95
+Wheat,50,40,95

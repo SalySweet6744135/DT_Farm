@@ -12,11 +12,14 @@ public class DroneDataCollector : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        else
+            Destroy(gameObject); // منع التكرار
     }
 
-    public void AddData(string plantName, float moisture, float health)
+    // ✅ الآن تستقبل 4 بيانات
+    public void AddData(string plantName, float moisture, float sunlight, float health)
     {
-        string line = $"{plantName},{moisture},{health}";
+        string line = $"{plantName},{moisture},{sunlight},{health}";
         collectedData.Add(line);
     }
 
@@ -25,7 +28,7 @@ public class DroneDataCollector : MonoBehaviour
         string path = Application.dataPath + "/DroneReport.csv";
         List<string> output = new List<string>
         {
-            "Plant Name,Soil Moisture,Health"
+            "Plant Name,Soil Moisture,Sunlight Exposure,Health"
         };
         output.AddRange(collectedData);
         File.WriteAllLines(path, output.ToArray());

@@ -2,21 +2,14 @@
 
 public class DronePatrol : MonoBehaviour
 {
-    public float speed = 5f; // سرعة الطيران
+    public float speed = 5f;
     private Transform[] waypoints;
     private int currentIndex = 0;
     private bool[] visitedPoints;
     private bool isFinished = false;
 
-    //public Animator DroneController;
-
     void Start()
     {
-        //if (DroneController != null)
-        //{
-        //    DroneController.SetBool("isSpinning", true);
-        //}
-
         GameObject pathParent = GameObject.Find("DronePath");
 
         if (pathParent == null)
@@ -46,24 +39,27 @@ public class DronePatrol : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, target.position);
 
-        // جمع البيانات إذا قرب من النبات
         if (!visitedPoints[currentIndex] && distance < 0.5f)
         {
-            CropHealth crop = target.GetComponent<CropHealth>();
+            PlantWeatherReaction crop = target.GetComponent<PlantWeatherReaction>();
             if (crop != null)
             {
-                DroneDataCollector.Instance.AddData(target.name, crop.soilMoisture, crop.health);
-                Debug.Log($"📦 Collected from {target.name}: moisture={crop.soilMoisture}, health={crop.health}");
+                DroneDataCollector.Instance.AddData(
+                    target.name,
+                    crop.soilMoisture,
+                    crop.sunlightExposure,
+                    crop.plantHealth
+                );
+                Debug.Log($"📦 Collected from {target.name}: moisture={crop.soilMoisture}, sun={crop.sunlightExposure}, health={crop.plantHealth}");
             }
             else
             {
-                Debug.LogWarning($"⚠️ No CropHealth script found on: {target.name}");
+                Debug.LogWarning($"⚠️ No PlantWeatherReaction script found on: {target.name}");
             }
 
             visitedPoints[currentIndex] = true;
         }
 
-        // التنقل للنقطة التالية
         if (distance < 0.2f)
         {
             currentIndex++;
@@ -73,12 +69,6 @@ public class DronePatrol : MonoBehaviour
                 isFinished = true;
                 DroneDataCollector.Instance.ExportToCSV();
                 Debug.Log("✅ Drone finished patrol and exported data.");
-
-                // 🛑 إيقاف أنميشن المروحة
-                //if (DroneController != null)
-                //{
-                //    DroneController.SetBool("isSpinning", false);
-                //}
             }
         }
     }
