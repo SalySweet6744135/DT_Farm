@@ -9,14 +9,17 @@ public class SkyboxWeatherController : MonoBehaviour
 
     public Material[] clearSkyboxes;
     public Material[] cloudySkyboxes;
-    public Material[] rainySkyboxes;
     public Material[] nightSkyboxes;
-    public Material[] fogSkyboxes;
 
     public GameObject rainEffect;
     public GameObject cloudEffect;
+    public GameObject fogEffect;
 
-    private string currentWeather = ""; // ✅ الآن متغير عام
+    public AudioSource rainSound;
+    public AudioSource nightSound;
+    public AudioSource clearSound;
+
+    private string currentWeather = "";
 
     void Start()
     {
@@ -40,23 +43,50 @@ public class SkyboxWeatherController : MonoBehaviour
             Debug.Log("☁️ Weather Condition: " + currentWeather);
             Debug.Log("🕒 Icon Code: " + icon);
 
-            // Skybox
+            // إيقاف التأثيرات
+            if (rainEffect) rainEffect.SetActive(false);
+            if (cloudEffect) cloudEffect.SetActive(false);
+            if (fogEffect) fogEffect.SetActive(false);
+
+            // إيقاف جميع الأصوات
+            if (rainSound) rainSound.Stop();
+            if (nightSound) nightSound.Stop();
+            if (clearSound) clearSound.Stop();
+
+            // سكايبوكس وصوت بناءً على الحالة
             if (icon.EndsWith("n") && nightSkyboxes.Length > 0)
+            {
                 RenderSettings.skybox = nightSkyboxes[Random.Range(0, nightSkyboxes.Length)];
+                if (nightSound) nightSound.Play();
+            }
             else if (currentWeather.Contains("clear") && clearSkyboxes.Length > 0)
+            {
                 RenderSettings.skybox = clearSkyboxes[Random.Range(0, clearSkyboxes.Length)];
+                if (clearSound) clearSound.Play();
+            }
             else if ((currentWeather.Contains("cloud") || currentWeather.Contains("overcast")) && cloudySkyboxes.Length > 0)
+            {
                 RenderSettings.skybox = cloudySkyboxes[Random.Range(0, cloudySkyboxes.Length)];
-            else if (currentWeather.Contains("rain") && rainySkyboxes.Length > 0)
-                RenderSettings.skybox = rainySkyboxes[Random.Range(0, rainySkyboxes.Length)];
-            else if ((currentWeather.Contains("fog") || currentWeather.Contains("mist")) && fogSkyboxes.Length > 0)
-                RenderSettings.skybox = fogSkyboxes[Random.Range(0, fogSkyboxes.Length)];
+                if (cloudEffect) cloudEffect.SetActive(true);
+                if (clearSound) clearSound.Play();
+            }
+            else if (currentWeather.Contains("rain"))
+            {
+                if (cloudySkyboxes.Length > 0)
+                    RenderSettings.skybox = cloudySkyboxes[Random.Range(0, cloudySkyboxes.Length)];
 
-            // Effects
-            if (rainEffect != null) rainEffect.SetActive(currentWeather.Contains("rain"));
-            if (cloudEffect != null) cloudEffect.SetActive(currentWeather.Contains("cloud") || currentWeather.Contains("overcast"));
+                if (rainEffect) rainEffect.SetActive(true);
+                if (rainSound) rainSound.Play();
+            }
+            else if (currentWeather.Contains("fog") || currentWeather.Contains("mist"))
+            {
+                if (cloudySkyboxes.Length > 0)
+                    RenderSettings.skybox = cloudySkyboxes[Random.Range(0, cloudySkyboxes.Length)];
 
-            // ✅ نحدث النباتات الآن
+                if (fogEffect) fogEffect.SetActive(true);
+                if (clearSound) clearSound.Play();
+            }
+
             UpdatePlantsWithWeather(currentWeather);
         }
         else
@@ -65,7 +95,6 @@ public class SkyboxWeatherController : MonoBehaviour
         }
     }
 
-    // ✅ تحديث النباتات بناءً على الطقس
     void UpdatePlantsWithWeather(string weather)
     {
         PlantWeatherReaction[] allPlants = Object.FindObjectsByType<PlantWeatherReaction>(FindObjectsSortMode.None);
