@@ -19,6 +19,15 @@ public class SkyboxWeatherController : MonoBehaviour
     public AudioSource nightSound;
     public AudioSource clearSound;
 
+    public Light sceneLight;
+    public Color dayLightColor = Color.white;
+    public Color nightLightColor = new Color(0.2f, 0.2f, 0.4f);
+    public float dayIntensity = 1.2f;
+    public float nightIntensity = 0.3f;
+    public float cloudyIntensity = 0.8f;
+    public float rainyIntensity = 0.5f;
+    public float foggyIntensity = 0.6f;
+
     private string currentWeather = "";
 
     void Start()
@@ -53,7 +62,7 @@ public class SkyboxWeatherController : MonoBehaviour
             if (nightSound) nightSound.Stop();
             if (clearSound) clearSound.Stop();
 
-            // سكايبوكس وصوت بناءً على الحالة
+            // تغيير السكايبوكس والصوت حسب الحالة
             if (icon.EndsWith("n") && nightSkyboxes.Length > 0)
             {
                 RenderSettings.skybox = nightSkyboxes[Random.Range(0, nightSkyboxes.Length)];
@@ -87,12 +96,55 @@ public class SkyboxWeatherController : MonoBehaviour
                 if (clearSound) clearSound.Play();
             }
 
+            // تحديث الإضاءة
+            UpdateLighting(currentWeather, icon);
+
+            // تحديث النباتات
             UpdatePlantsWithWeather(currentWeather);
         }
         else
         {
             Debug.LogError("API Error: " + www.error);
         }
+    }
+
+    void UpdateLighting(string weather, string icon)
+    {
+        if (sceneLight == null) return;
+
+        if (icon.EndsWith("n")) // Night
+        {
+            sceneLight.color = nightLightColor;
+            sceneLight.intensity = nightIntensity;
+            sceneLight.transform.rotation = Quaternion.Euler(340f, 0f, 0f); // simulate moonlight
+        }
+        else if (weather.Contains("clear"))
+        {
+            sceneLight.color = dayLightColor;
+            sceneLight.intensity = dayIntensity;
+            sceneLight.transform.rotation = Quaternion.Euler(50f, 30f, 0f); // sunlight
+        }
+        else if (weather.Contains("cloud") || weather.Contains("overcast"))
+        {
+            sceneLight.color = dayLightColor * 0.8f;
+            sceneLight.intensity = cloudyIntensity;
+            sceneLight.transform.rotation = Quaternion.Euler(50f, 30f, 0f);
+        }
+        else if (weather.Contains("rain"))
+        {
+            sceneLight.color = new Color(0.6f, 0.6f, 0.7f);
+            sceneLight.intensity = rainyIntensity;
+            sceneLight.transform.rotation = Quaternion.Euler(50f, 30f, 0f);
+        }
+        else if (weather.Contains("fog") || weather.Contains("mist"))
+        {
+            sceneLight.color = new Color(0.7f, 0.7f, 0.7f);
+            sceneLight.intensity = foggyIntensity;
+            sceneLight.transform.rotation = Quaternion.Euler(50f, 30f, 0f);
+        }
+
+        // Optional: Update ambient light too
+        RenderSettings.ambientLight = sceneLight.color * 0.6f;
     }
 
     void UpdatePlantsWithWeather(string weather)
