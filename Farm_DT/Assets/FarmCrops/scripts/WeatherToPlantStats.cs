@@ -10,6 +10,12 @@ public class WeatherToPlantStats : MonoBehaviour
     void Start()
     {
         StartCoroutine(GetWeatherAndApply());
+        InvokeRepeating(nameof(UpdateWeather), 600f, 600f); // تحديث كل 10 دقائق
+    }
+
+    void UpdateWeather()
+    {
+        StartCoroutine(GetWeatherAndApply());
     }
 
     IEnumerator GetWeatherAndApply()
@@ -24,9 +30,12 @@ public class WeatherToPlantStats : MonoBehaviour
 
             float humidity = data.main.humidity;        // 🟢 Soil Moisture
             float temperature = data.main.temp;         // 🟡 Sunlight approximation
+            string icon = data.weather[0].icon;         // 🌓 Icon to check if it's night
 
-            float soilMoisture = Mathf.Clamp(humidity, 0, 100); // Use humidity directly
-            float sunlight = Mathf.Clamp((temperature / 40f) * 100f, 0, 100); // 40°C = full sunlight
+            float soilMoisture = Mathf.Clamp(humidity, 0, 100);
+
+            // ☀️ Sunlight = 0 if night
+            float sunlight = icon.Contains("n") ? 0f : Mathf.Clamp((temperature / 40f) * 100f, 0, 100);
 
             float healthIndex = (soilMoisture + sunlight) / 2f;
 
@@ -63,8 +72,15 @@ public class WeatherToPlantStats : MonoBehaviour
     }
 
     [System.Serializable]
+    public class WeatherCondition
+    {
+        public string icon;
+    }
+
+    [System.Serializable]
     public class WeatherData
     {
         public WeatherMain main;
+        public WeatherCondition[] weather;
     }
 }

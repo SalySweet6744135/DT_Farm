@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -28,7 +29,10 @@ public class SkyboxWeatherController : MonoBehaviour
     public float rainyIntensity = 0.5f;
     public float foggyIntensity = 0.6f;
 
-    private string currentWeather = "";
+    private string currentWeather = "unknown";
+    private string currentTemp = "N/A";
+
+    public bool isWeatherReady = false;
 
     void Start()
     {
@@ -48,21 +52,20 @@ public class SkyboxWeatherController : MonoBehaviour
 
             currentWeather = weather.weather[0].main.ToLower();
             string icon = weather.weather[0].icon;
+            currentTemp = weather.main.temp.ToString("F1");
 
             Debug.Log("☁️ Weather Condition: " + currentWeather);
             Debug.Log("🕒 Icon Code: " + icon);
+            Debug.Log("🌡️ Temperature: " + currentTemp + "°C");
 
-            // إيقاف التأثيرات
             if (rainEffect) rainEffect.SetActive(false);
             if (cloudEffect) cloudEffect.SetActive(false);
             if (fogEffect) fogEffect.SetActive(false);
 
-            // إيقاف جميع الأصوات
             if (rainSound) rainSound.Stop();
             if (nightSound) nightSound.Stop();
             if (clearSound) clearSound.Stop();
 
-            // تغيير السكايبوكس والصوت حسب الحالة
             if (icon.EndsWith("n") && nightSkyboxes.Length > 0)
             {
                 RenderSettings.skybox = nightSkyboxes[Random.Range(0, nightSkyboxes.Length)];
@@ -96,11 +99,10 @@ public class SkyboxWeatherController : MonoBehaviour
                 if (clearSound) clearSound.Play();
             }
 
-            // تحديث الإضاءة
             UpdateLighting(currentWeather, icon);
-
-            // تحديث النباتات
             UpdatePlantsWithWeather(currentWeather);
+
+            isWeatherReady = true;
         }
         else
         {
@@ -112,17 +114,17 @@ public class SkyboxWeatherController : MonoBehaviour
     {
         if (sceneLight == null) return;
 
-        if (icon.EndsWith("n")) // Night
+        if (icon.EndsWith("n"))
         {
             sceneLight.color = nightLightColor;
             sceneLight.intensity = nightIntensity;
-            sceneLight.transform.rotation = Quaternion.Euler(340f, 0f, 0f); // simulate moonlight
+            sceneLight.transform.rotation = Quaternion.Euler(340f, 0f, 0f);
         }
         else if (weather.Contains("clear"))
         {
             sceneLight.color = dayLightColor;
             sceneLight.intensity = dayIntensity;
-            sceneLight.transform.rotation = Quaternion.Euler(50f, 30f, 0f); // sunlight
+            sceneLight.transform.rotation = Quaternion.Euler(50f, 30f, 0f);
         }
         else if (weather.Contains("cloud") || weather.Contains("overcast"))
         {
@@ -143,7 +145,6 @@ public class SkyboxWeatherController : MonoBehaviour
             sceneLight.transform.rotation = Quaternion.Euler(50f, 30f, 0f);
         }
 
-        // Optional: Update ambient light too
         RenderSettings.ambientLight = sceneLight.color * 0.6f;
     }
 
@@ -156,6 +157,16 @@ public class SkyboxWeatherController : MonoBehaviour
         }
     }
 
+    public string GetCurrentTemperature()
+    {
+        return currentTemp;
+    }
+
+    public string GetCurrentWeatherName()
+    {
+        return currentWeather;
+    }
+
     [System.Serializable]
     public class Weather
     {
@@ -164,8 +175,15 @@ public class SkyboxWeatherController : MonoBehaviour
     }
 
     [System.Serializable]
+    public class Main
+    {
+        public float temp;
+    }
+
+    [System.Serializable]
     public class WeatherResponse
     {
         public Weather[] weather;
+        public Main main;
     }
 }
