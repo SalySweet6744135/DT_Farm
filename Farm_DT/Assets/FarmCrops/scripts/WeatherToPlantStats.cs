@@ -35,7 +35,9 @@ public class WeatherToPlantStats : MonoBehaviour
             float soilMoisture = Mathf.Clamp(humidity, 0, 100);
 
             // ☀️ Sunlight = 0 if night
+
             float sunlight = icon.Contains("n") ? 0f : Mathf.Clamp((temperature / 40f) * 100f, 0, 100);
+            Debug.Log($"🌓 Weather Icon: {icon}");
 
             float healthIndex = (soilMoisture + sunlight) / 2f;
 
@@ -49,6 +51,7 @@ public class WeatherToPlantStats : MonoBehaviour
         {
             Debug.LogError("API Error: " + www.error);
         }
+
     }
 
     void ApplyToAllPlants(float soilMoisture, float sunlight, float healthIndex)
@@ -62,6 +65,7 @@ public class WeatherToPlantStats : MonoBehaviour
             plant.plantHealth = healthIndex;
             plant.UpdateGrowthStage();
         }
+
     }
 
     [System.Serializable]
